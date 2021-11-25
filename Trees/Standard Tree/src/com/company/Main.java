@@ -156,6 +156,31 @@ public class Main {
         }
     }
 
+    public static int sumOfNodes(TreeNode<Integer>root){
+        if(root == null){
+            return 0;
+        }
+        int ans = 0;
+        for(int i=0;i<root.children.size();i++){
+            ans += sumOfNodes(root.children.get(i));
+        }
+        return ans+root.data;
+    }
+
+    public static int rootsGreaterThanX(TreeNode<Integer>root,int x){
+        if(root == null){
+            return 0;
+        }
+        int ans = 0;
+        for (int i=0;i<root.children.size();i++){
+            ans += rootsGreaterThanX(root.children.get(i),x);
+        }
+        if(root.data > x){
+            return ans+1;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 //        TreeNode<Integer> root = takeInput(scanner);
@@ -173,5 +198,7 @@ public class Main {
         postorder(rootLevelWise);
         System.out.println();
         levelorder(rootLevelWise);
+        System.out.println("Sum of all the nodes is : " + sumOfNodes(rootLevelWise));
+        System.out.println("Number of nodes greater than 5 : " + rootsGreaterThanX(rootLevelWise,5));
     }
 }
