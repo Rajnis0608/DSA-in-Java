@@ -3,6 +3,7 @@ package com.company;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
@@ -181,6 +182,107 @@ public class Main {
         return ans;
     }
 
+    public static boolean isPresent(TreeNode<Integer> root,int x){
+        if(root == null){
+            return false;
+        }
+        if(root.data == x){
+            return true;
+        }
+        boolean ans = false;
+        for(int i=0;i<root.children.size();i++){
+            ans = ans|isPresent(root.children.get(i),x);
+        }
+        return ans;
+    }
+
+    public static int rootWithChildMaxSum(TreeNode<Integer> root){
+        Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
+        pendingNodes.offer(root);
+        int max = 0;
+        int ans = 0;
+        while (!pendingNodes.isEmpty()){
+            TreeNode<Integer>current = pendingNodes.poll();
+            int sum = current.data;
+            for(int i=0;i<current.children.size();i++){
+                sum += current.children.get(i).data;
+                pendingNodes.offer(current.children.get(i));
+            }
+            if(max < sum){
+                max = sum;
+                ans = current.data;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isIdentical(TreeNode<Integer>tree1,TreeNode<Integer>tree2){
+        if(tree1==null && tree2==null){
+            return true;
+        }
+        if(tree1==null || tree2==null){
+            return false;
+        }
+        if(tree1.data != tree2.data){
+            return false;
+        }
+        if(tree1.children.size() != tree2.children.size()){
+            return false;
+        }
+        boolean ans = true;
+        for(int i=0;i<tree1.children.size();i++){
+            ans = ans & isIdentical(tree1.children.get(i),tree2.children.get(i));
+        }
+        return ans;
+    }
+
+    public static int justGreaterThanX(TreeNode<Integer>root,int x){
+        Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
+        pendingNodes.offer(root);
+        int ans = Integer.MAX_VALUE;
+        while (!pendingNodes.isEmpty()){
+            TreeNode<Integer>current = pendingNodes.poll();
+            if(current.data > x && ans > current.data){
+                ans = current.data;
+            }
+            for (int i=0;i<current.children.size();i++){
+                pendingNodes.offer(current.children.get(i));
+            }
+        }
+        return ans;
+    }
+
+    public static int secondLargest(TreeNode<Integer> root){
+        int first = 0;int second = 0;
+        Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
+        pendingNodes.offer(root);
+        while (!pendingNodes.isEmpty()){
+            TreeNode<Integer>current = pendingNodes.poll();
+            if(current.data > first){
+                second = first;
+                first = current.data;
+            }
+            for (int i=0;i<current.children.size();i++){
+                pendingNodes.offer(current.children.get(i));
+            }
+        }
+        return second;
+    }
+
+    public static void replaceNodeWithDepth(TreeNode<Integer> root){
+        replaceNodeWithDepth(root,0);
+    }
+
+    private static void replaceNodeWithDepth(TreeNode<Integer> root,int depth){
+        if(root == null){
+            return;
+        }
+        root.data = depth;
+        for(int i=0;i<root.children.size();i++){
+            replaceNodeWithDepth(root.children.get(i),depth+1);
+        }
+    }
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 //        TreeNode<Integer> root = takeInput(scanner);
@@ -200,5 +302,15 @@ public class Main {
         levelorder(rootLevelWise);
         System.out.println("Sum of all the nodes is : " + sumOfNodes(rootLevelWise));
         System.out.println("Number of nodes greater than 5 : " + rootsGreaterThanX(rootLevelWise,5));
+        System.out.println("Is 10 present : " + isPresent(rootLevelWise,10));
+        System.out.println("Is 12 present : " + isPresent(rootLevelWise,12));
+        System.out.println("Root with maximum sum of root and its child : "+rootWithChildMaxSum(rootLevelWise));
+        //TreeNode<Integer> rootLevelWise2 = takeInputLevelWise(scanner);
+        System.out.println("Is identical : " + isIdentical(rootLevelWise,rootLevelWise) );
+        System.out.println("Root just greater than 5 : " + justGreaterThanX(rootLevelWise,5));
+        System.out.println("Second largest node is : " + secondLargest(rootLevelWise));
+        replaceNodeWithDepth(rootLevelWise);
+        printLevelWise(rootLevelWise);
     }
 }
+//1 4 2 3 4 5 2 6 7 1 8 0 1 9 0 1 10 0 0 0
