@@ -282,6 +282,7 @@ public class Main {
             replaceNodeWithDepth(root.children.get(i),depth+1);
         }
     }
+
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

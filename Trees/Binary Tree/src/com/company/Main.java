@@ -243,6 +243,13 @@ public class Main {
         return root;
     }
 
+    public static int sum(TreeNode<Integer> root){
+        if(root == null){
+            return 0;
+        }
+        return root.data+sum(root.left)+sum(root.right);
+    }
+
     public static void main(String[] args) {
 	// write your code here
         Scanner scanner = new Scanner(System.in);
@@ -269,5 +276,6 @@ public class Main {
         System.out.println("Is 9 present : "+isPresent(root,9));
         TreeNode<Integer> mirrored = mirror(root);
         printLevelWise(root);
+        System.out.println("Sum of all the nodes is : " + sum(root));
     }
 }
