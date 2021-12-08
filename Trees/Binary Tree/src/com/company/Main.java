@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -67,6 +68,9 @@ public class Main {
     }
 
     public static void printLevelWise(TreeNode<Integer> root){
+        if(root == null){
+            return;
+        }
         Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
         pendingNodes.offer(root);
         while (!pendingNodes.isEmpty()){
@@ -250,32 +254,159 @@ public class Main {
         return root.data+sum(root.left)+sum(root.right);
     }
 
+    public static TreeNode<Integer> removeLeaf(TreeNode<Integer> root){
+        if(root == null){
+            return null;
+        }
+        if(root.left == null && root.right == null){
+            return null;
+        }
+        root.left = removeLeaf(root.left);
+        root.right = removeLeaf(root.right);
+        return root;
+    }
+
+    /*************PENDING*********************/
+    public static ArrayList<LinkedList<Integer>> levelWiseLinkedList(TreeNode<Integer> root){
+        ArrayList<LinkedList<Integer>> ans = new ArrayList<>();
+        LinkedList<Integer> rootData = new LinkedList<>();
+        rootData.add(root.data);
+        ans.add(rootData);
+        return ans;
+    }
+
+    /************BST Operations**************/
+    public static int maximum(TreeNode<Integer> root){
+        if(root == null){
+            return Integer.MIN_VALUE;
+        }
+        return Math.max(root.data,Math.max(maximum(root.left),maximum(root.right)));
+    }
+
+    public static int minimum(TreeNode<Integer> root){
+        if(root == null){
+            return Integer.MAX_VALUE;
+        }
+        return Math.min(root.data,Math.min(minimum(root.left),minimum(root.right)));
+    }
+
+    public static boolean searchElement(TreeNode<Integer> root,int x){
+
+        if(root == null){
+            return false;
+        }
+        if(root.data == x){
+            return true;
+        }
+        if(x < root.data){
+            return searchElement(root.left,x);
+        }
+        if(x > root.data){
+            return searchElement(root.right,x);
+        }
+        return false;
+    }
+
+    public static boolean isBST1(TreeNode<Integer> root){
+        if(root == null){
+            return true;
+        }
+        int leftHighest = maximum(root.left);
+        int rightLowest = minimum(root.right);
+        if(leftHighest >= root.data ){
+            return false;
+        }
+        if(rightLowest < root.data){
+            return false;
+        }
+        boolean isLeftTrue = isBST1(root.left);
+        boolean isRightTrue = isBST1(root.right);
+
+        if(isLeftTrue && isLeftTrue){
+            return true;
+        }
+        return false;
+    }
+
+    public static Pair<Boolean , Pair<Integer,Integer>> isBST2(TreeNode<Integer> root){
+        if(root == null){
+            Pair<Boolean , Pair<Integer,Integer>> output = new Pair<>();
+            output.data1 = true;
+            output.data2 = new Pair<>();
+            output.data2.data1 = Integer.MAX_VALUE;
+            output.data2.data2 = Integer.MIN_VALUE;
+            return output;
+        }
+        Pair<Boolean , Pair<Integer,Integer>> leftOutput = isBST2(root.left);
+        Pair<Boolean , Pair<Integer,Integer>> rightOutput = isBST2(root.right);
+        int min = Math.min(leftOutput.data2.data1,Math.min(rightOutput.data2.data1,root.data));
+        int max = Math.max(leftOutput.data2.data2,Math.max(rightOutput.data2.data2,root.data));
+        boolean isBst = (root.data > leftOutput.data2.data2) & (root.data < rightOutput.data2.data1)
+                & leftOutput.data1 & rightOutput.data1;
+        Pair<Boolean , Pair<Integer,Integer>> output = new Pair<>();
+        output.data1 = isBst;
+        output.data2 = new Pair<>();
+        output.data2.data1 = min;
+        output.data2.data2 = max;
+        return output;
+    }
+
+    public static Boolean isBST3(TreeNode<Integer> root,int a,int b){
+        if (root == null){
+            return true;
+        }
+        if(root.data < a || root.data > b){
+            return false;
+        }
+        return isBST3(root.left,a,root.data) && isBST3(root.right,root.data,b);
+    }
+
     public static void main(String[] args) {
 	// write your code here
         Scanner scanner = new Scanner(System.in);
     //  TreeNode<Integer> root = takeInput(scanner);
     //  TreeNode<Integer> root = takeInputLevelWise();
-        int[] pre = {1,2,4,6,5,3};
-        int[] in = {6,4,2,5,1,3};
-        int[] post = {6,4,5,2,3,1};
-        TreeNode<Integer> root = treeBuilderFromPostAndIn(post,in);
-        printRecursive(root);
-        printLevelWise(root);
-        System.out.println("Number of nodes : " + countNodes(root));
-        System.out.println("Height of tree : " + height(root));
-        System.out.println("Diameter of tree is : " + diameter(root));
-        Pair<Integer,Integer> dnh = diameterAndHeight(root);
-        System.out.println("Diameter : " + dnh.data1 + " Height : " + dnh.data2) ;
-        preorder(root);
-        System.out.println();
-        inorder(root);
-        System.out.println();
-        postorder(root);
-        System.out.println();
-        System.out.println("Is 5 present : "+isPresent(root,5));
-        System.out.println("Is 9 present : "+isPresent(root,9));
-        TreeNode<Integer> mirrored = mirror(root);
-        printLevelWise(root);
-        System.out.println("Sum of all the nodes is : " + sum(root));
+//        int[] pre = {1,2,4,6,5,3};
+//        int[] in = {6,4,2,5,1,3};
+//        int[] post = {6,4,5,2,3,1};
+//        TreeNode<Integer> root = treeBuilderFromPostAndIn(post,in);
+//        printRecursive(root);
+//        printLevelWise(root);
+//        System.out.println("Number of nodes : " + countNodes(root));
+//        System.out.println("Height of tree : " + height(root));
+//        System.out.println("Diameter of tree is : " + diameter(root));
+//        Pair<Integer,Integer> dnh = diameterAndHeight(root);
+//        System.out.println("Diameter : " + dnh.data1 + " Height : " + dnh.data2) ;
+//        preorder(root);
+//        System.out.println();
+//        inorder(root);
+//        System.out.println();
+//        postorder(root);
+//        System.out.println();
+//        System.out.println("Is 5 present : "+isPresent(root,5));
+//        System.out.println("Is 9 present : "+isPresent(root,9));
+//        TreeNode<Integer> mirrored = mirror(root);
+//        printLevelWise(root);
+//        System.out.println("Sum of all the nodes is : " + sum(root));
+//        removeLeaf(root);
+//        printLevelWise(root);
+
+        //BST Testing
+        TreeNode<Integer> rootBST = takeInputLevelWise(); //// 15 10 19 5 12 18 -1 -1 6 -1 -1 -1 -1 -1 -1
+        printLevelWise(rootBST);
+        System.out.println("Is 2 present : " + searchElement(rootBST,2));
+        System.out.println("Is 6 present : " + searchElement(rootBST,6));
+        System.out.println("Is 18 present : " + searchElement(rootBST,18));
+
+        System.out.println("Min of tree : " + minimum(rootBST));
+        System.out.println("Max of tree : " + maximum(rootBST));
+
+        System.out.println("Is Tree a BST 1 : " + isBST1(rootBST) );
+        System.out.println("Is Tree a BST 2 : " + isBST2(rootBST).data1 );
+        System.out.println("Min of tree : " + isBST2(rootBST).data2.data1);
+        System.out.println("Max of tree : " + isBST2(rootBST).data2.data2);
+        System.out.println("Is Tree a BST 3 : " + isBST3(rootBST,Integer.MIN_VALUE,Integer.MAX_VALUE));
     }
+
+
 }
