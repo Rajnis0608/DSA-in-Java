@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -361,6 +358,23 @@ public class Main {
         return isBST3(root.left,a,root.data) && isBST3(root.right,root.data,b);
     }
 
+    private static TreeNode<Integer> BSTFromArray(int[] arr,int si,int ei){
+        if(ei < si){
+            return null;
+        }
+        int mid = (ei+si)/2;
+        TreeNode<Integer> root = new TreeNode<>(arr[mid]);
+        root.left = BSTFromArray(arr,si,mid-1);
+        root.right = BSTFromArray(arr,mid+1,ei);
+        return root;
+    }
+
+    /*************PENDING*********************/
+    public static TreeNode<Integer> BSTFromArray(int[] arr){
+        Arrays.sort(arr);
+        return BSTFromArray(arr,0,arr.length-1);
+    }
+
     public static void main(String[] args) {
 	// write your code here
         Scanner scanner = new Scanner(System.in);
@@ -392,20 +406,23 @@ public class Main {
 //        printLevelWise(root);
 
         //BST Testing
-        TreeNode<Integer> rootBST = takeInputLevelWise(); //// 15 10 19 5 12 18 -1 -1 6 -1 -1 -1 -1 -1 -1
-        printLevelWise(rootBST);
-        System.out.println("Is 2 present : " + searchElement(rootBST,2));
-        System.out.println("Is 6 present : " + searchElement(rootBST,6));
-        System.out.println("Is 18 present : " + searchElement(rootBST,18));
-
-        System.out.println("Min of tree : " + minimum(rootBST));
-        System.out.println("Max of tree : " + maximum(rootBST));
-
-        System.out.println("Is Tree a BST 1 : " + isBST1(rootBST) );
-        System.out.println("Is Tree a BST 2 : " + isBST2(rootBST).data1 );
-        System.out.println("Min of tree : " + isBST2(rootBST).data2.data1);
-        System.out.println("Max of tree : " + isBST2(rootBST).data2.data2);
-        System.out.println("Is Tree a BST 3 : " + isBST3(rootBST,Integer.MIN_VALUE,Integer.MAX_VALUE));
+//        TreeNode<Integer> rootBST = takeInputLevelWise(); //// 15 10 19 5 12 18 -1 -1 6 -1 -1 -1 -1 -1 -1
+//        printLevelWise(rootBST);
+//        System.out.println("Is 2 present : " + searchElement(rootBST,2));
+//        System.out.println("Is 6 present : " + searchElement(rootBST,6));
+//        System.out.println("Is 18 present : " + searchElement(rootBST,18));
+//
+//        System.out.println("Min of tree : " + minimum(rootBST));
+//        System.out.println("Max of tree : " + maximum(rootBST));
+//
+//        System.out.println("Is Tree a BST 1 : " + isBST1(rootBST) );
+//        System.out.println("Is Tree a BST 2 : " + isBST2(rootBST).data1 );
+//        System.out.println("Min of tree : " + isBST2(rootBST).data2.data1);
+//        System.out.println("Max of tree : " + isBST2(rootBST).data2.data2);
+//        System.out.println("Is Tree a BST 3 : " + isBST3(rootBST,Integer.MIN_VALUE,Integer.MAX_VALUE));
+        int[] arrayToBST = {19,21,50,14,8,30,42};
+        TreeNode<Integer> BSTFromArr = BSTFromArray(arrayToBST);
+        printLevelWise(BSTFromArr);
     }
 
 
