@@ -4,19 +4,19 @@ import java.util.*;
 
 public class Main {
 
-    public static TreeNode<Integer> takeInput(Scanner s){
+    public static BinaryTreeNode<Integer> takeInput(Scanner s){
         System.out.println("Enter node data : ");
         int data = s.nextInt();
         if(data == -1){
             return null;
         }
-        TreeNode<Integer> root = new TreeNode<>(data);
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(data);
         root.left = takeInput(s);
         root.right = takeInput(s);
         return root;
     }
 
-    public static void printRecursive(TreeNode<Integer> root){
+    public static void printRecursive(BinaryTreeNode<Integer> root){
         if(root == null){
             return;
         }
@@ -32,23 +32,23 @@ public class Main {
         printRecursive(root.right);
     }
 
-    public static TreeNode<Integer> takeInputLevelWise(){
+    public static BinaryTreeNode<Integer> takeInputLevelWise(){
         Scanner s = new Scanner(System.in);
-        Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
+        Queue<BinaryTreeNode<Integer>> pendingNodes = new LinkedList<>();
         System.out.println("Enter root data : ");
         int rootData = s.nextInt();
         if(rootData == -1){
             return null;
         }
-        TreeNode<Integer> root = new TreeNode<>(rootData);
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(rootData);
         pendingNodes.offer(root);
         while(!pendingNodes.isEmpty()){
-            TreeNode<Integer> currentNode = pendingNodes.poll();
+            BinaryTreeNode<Integer> currentNode = pendingNodes.poll();
 
             System.out.println("Enter left child of " + currentNode.data + " : ");
             int leftChild = s.nextInt();
             if(leftChild != -1){
-                TreeNode<Integer> leftRoot = new TreeNode<>(leftChild);
+                BinaryTreeNode<Integer> leftRoot = new BinaryTreeNode<>(leftChild);
                 currentNode.left = leftRoot;
                 pendingNodes.offer(leftRoot);
             }
@@ -56,7 +56,7 @@ public class Main {
             System.out.println("Enter right child of " + currentNode.data + " : ");
             int rightChild = s.nextInt();
             if(rightChild != -1){
-                TreeNode<Integer> rightRoot = new TreeNode<>(rightChild);
+                BinaryTreeNode<Integer> rightRoot = new BinaryTreeNode<>(rightChild);
                 currentNode.right = rightRoot;
                 pendingNodes.offer(rightRoot);
             }
@@ -64,14 +64,14 @@ public class Main {
         return root;
     }
 
-    public static void printLevelWise(TreeNode<Integer> root){
+    public static void printLevelWise(BinaryTreeNode<Integer> root){
         if(root == null){
             return;
         }
-        Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
+        Queue<BinaryTreeNode<Integer>> pendingNodes = new LinkedList<>();
         pendingNodes.offer(root);
         while (!pendingNodes.isEmpty()){
-            TreeNode<Integer> current = pendingNodes.poll();
+            BinaryTreeNode<Integer> current = pendingNodes.poll();
             System.out.print(current.data + ":");
             if(current.left != null){
                 System.out.print("L-" + current.left.data);
@@ -85,7 +85,7 @@ public class Main {
         }
     }
 
-    public static int countNodes(TreeNode<Integer> root){
+    public static int countNodes(BinaryTreeNode<Integer> root){
         if(root == null){
             return 0;
         }
@@ -95,7 +95,7 @@ public class Main {
         return count+1;
     }
 
-    public static int height(TreeNode<Integer> root){
+    public static int height(BinaryTreeNode<Integer> root){
         if(root == null){
             return 0;
         }
@@ -104,7 +104,7 @@ public class Main {
         return Math.max(leftHeight,rightHeight) + 1;
     }
 
-    public static int diameter(TreeNode<Integer> root){
+    public static int diameter(BinaryTreeNode<Integer> root){
         if(root == null){
             return 0;
         }
@@ -114,7 +114,7 @@ public class Main {
         return Math.max(opt1,Math.max(opt2,opt3));
     }
 
-    public static Pair<Integer,Integer>diameterAndHeight(TreeNode<Integer> root){
+    public static Pair<Integer,Integer>diameterAndHeight(BinaryTreeNode<Integer> root){
         if (root == null){
             Pair<Integer,Integer> output = new Pair<>();
             output.data1 = 0;
@@ -134,7 +134,7 @@ public class Main {
         return ans;
     }
 
-    public static void preorder(TreeNode<Integer> root){
+    public static void preorder(BinaryTreeNode<Integer> root){
         if(root == null){
             return;
         }
@@ -143,7 +143,7 @@ public class Main {
         preorder(root.right);
     }
 
-    public static void postorder(TreeNode<Integer> root){
+    public static void postorder(BinaryTreeNode<Integer> root){
         if (root == null){
             return;
         }
@@ -153,7 +153,7 @@ public class Main {
 
     }
 
-    public static void inorder(TreeNode<Integer> root){
+    public static void inorder(BinaryTreeNode<Integer> root){
         if (root == null){
             return;
         }
@@ -162,11 +162,11 @@ public class Main {
         inorder(root.right);
     }
 
-    private static TreeNode<Integer> treeBuilderFromPreAndIn(int[] pre, int[] in, int ps, int pe, int is, int ie){
+    private static BinaryTreeNode<Integer> treeBuilderFromPreAndIn(int[] pre, int[] in, int ps, int pe, int is, int ie){
         if(is > ie){
             return null;
         }
-        TreeNode<Integer> root = new TreeNode<>(pre[ps]);
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(pre[ps]);
         int rootIndex = -1;
         for(int i=0;i<in.length;i++){
             if(in[i] == root.data){
@@ -188,15 +188,15 @@ public class Main {
         return root;
     }
 
-    public static TreeNode<Integer> treeBuilderFromPreAndIn(int[] pre, int[] in){
+    public static BinaryTreeNode<Integer> treeBuilderFromPreAndIn(int[] pre, int[] in){
         return treeBuilderFromPreAndIn(pre,in,0,pre.length-1,0,in.length-1);
     }
 
-    private static TreeNode<Integer> treeBuilderFromPostAndIn(int[] post, int[] in, int ps, int pe, int is, int ie){
+    private static BinaryTreeNode<Integer> treeBuilderFromPostAndIn(int[] post, int[] in, int ps, int pe, int is, int ie){
         if(is > ie){
             return null;
         }
-        TreeNode<Integer> root = new TreeNode<>(post[pe]);
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(post[pe]);
         int rootIndex = -1;
         for(int i=0;i<in.length;i++){
             if(root.data == in[i]){
@@ -218,11 +218,11 @@ public class Main {
         return root;
     }
 
-    public static TreeNode<Integer>treeBuilderFromPostAndIn(int[] post,int[] in){
+    public static BinaryTreeNode<Integer> treeBuilderFromPostAndIn(int[] post, int[] in){
         return treeBuilderFromPostAndIn(post,in,0,post.length-1,0,in.length-1);
     }
 
-    public static boolean isPresent(TreeNode<Integer>root,int x){
+    public static boolean isPresent(BinaryTreeNode<Integer> root, int x){
         if(root == null){
             return false;
         }
@@ -234,24 +234,24 @@ public class Main {
         return left|right;
     }
 
-    public static TreeNode<Integer> mirror(TreeNode<Integer> root){
+    public static BinaryTreeNode<Integer> mirror(BinaryTreeNode<Integer> root){
         if(root == null){
             return null;
         }
-        TreeNode<Integer> temp = root.right;
+        BinaryTreeNode<Integer> temp = root.right;
         root.right = mirror(root.left);
         root.left = mirror(temp);
         return root;
     }
 
-    public static int sum(TreeNode<Integer> root){
+    public static int sum(BinaryTreeNode<Integer> root){
         if(root == null){
             return 0;
         }
         return root.data+sum(root.left)+sum(root.right);
     }
 
-    public static TreeNode<Integer> removeLeaf(TreeNode<Integer> root){
+    public static BinaryTreeNode<Integer> removeLeaf(BinaryTreeNode<Integer> root){
         if(root == null){
             return null;
         }
@@ -264,7 +264,7 @@ public class Main {
     }
 
     /*************PENDING*********************/
-    public static ArrayList<LinkedList<Integer>> levelWiseLinkedList(TreeNode<Integer> root){
+    public static ArrayList<LinkedList<Integer>> levelWiseLinkedList(BinaryTreeNode<Integer> root){
         ArrayList<LinkedList<Integer>> ans = new ArrayList<>();
         LinkedList<Integer> rootData = new LinkedList<>();
         rootData.add(root.data);
@@ -273,21 +273,21 @@ public class Main {
     }
 
     /************BST Operations**************/
-    public static int maximum(TreeNode<Integer> root){
+    public static int maximum(BinaryTreeNode<Integer> root){
         if(root == null){
             return Integer.MIN_VALUE;
         }
         return Math.max(root.data,Math.max(maximum(root.left),maximum(root.right)));
     }
 
-    public static int minimum(TreeNode<Integer> root){
+    public static int minimum(BinaryTreeNode<Integer> root){
         if(root == null){
             return Integer.MAX_VALUE;
         }
         return Math.min(root.data,Math.min(minimum(root.left),minimum(root.right)));
     }
 
-    public static boolean searchElement(TreeNode<Integer> root,int x){
+    public static boolean searchElement(BinaryTreeNode<Integer> root, int x){
 
         if(root == null){
             return false;
@@ -304,7 +304,7 @@ public class Main {
         return false;
     }
 
-    public static boolean isBST1(TreeNode<Integer> root){
+    public static boolean isBST1(BinaryTreeNode<Integer> root){
         if(root == null){
             return true;
         }
@@ -325,7 +325,7 @@ public class Main {
         return false;
     }
 
-    public static Pair<Boolean , Pair<Integer,Integer>> isBST2(TreeNode<Integer> root){
+    public static Pair<Boolean , Pair<Integer,Integer>> isBST2(BinaryTreeNode<Integer> root){
         if(root == null){
             Pair<Boolean , Pair<Integer,Integer>> output = new Pair<>();
             output.data1 = true;
@@ -348,7 +348,7 @@ public class Main {
         return output;
     }
 
-    public static Boolean isBST3(TreeNode<Integer> root,int a,int b){
+    public static Boolean isBST3(BinaryTreeNode<Integer> root, int a, int b){
         if (root == null){
             return true;
         }
@@ -358,28 +358,65 @@ public class Main {
         return isBST3(root.left,a,root.data) && isBST3(root.right,root.data,b);
     }
 
-    private static TreeNode<Integer> BSTFromArray(int[] arr,int si,int ei){
+    private static BinaryTreeNode<Integer> BSTFromArray(int[] arr, int si, int ei){
         if(ei < si){
             return null;
         }
         int mid = (ei+si)/2;
-        TreeNode<Integer> root = new TreeNode<>(arr[mid]);
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(arr[mid]);
         root.left = BSTFromArray(arr,si,mid-1);
         root.right = BSTFromArray(arr,mid+1,ei);
         return root;
     }
 
-    /*************PENDING*********************/
-    public static TreeNode<Integer> BSTFromArray(int[] arr){
+    public static BinaryTreeNode<Integer> BSTFromArray(int[] arr){
         Arrays.sort(arr);
         return BSTFromArray(arr,0,arr.length-1);
+    }
+
+    public static LinkedList<Integer> BSTToSortedLL(BinaryTreeNode<Integer> root){
+        LinkedList<Integer> ans = new LinkedList<>();
+        if(root == null){
+            return null;
+        }
+        if(BSTToSortedLL(root.left) != null) {
+            ans.addAll(BSTToSortedLL(root.left));
+        }
+        ans.add(root.data);
+        if(BSTToSortedLL(root.right) != null) {
+            ans.addAll(BSTToSortedLL(root.right));
+        }
+
+        return ans;
+    }
+
+    public static ArrayList<Integer> getRootToNodePath(BinaryTreeNode<Integer> root, int data) {
+        if (root == null){
+            return null;
+        }
+        if(root.data == data){
+            ArrayList<Integer> output = new ArrayList<>();
+            output.add(root.data);
+            return output;
+        }
+        ArrayList<Integer> leftOutput = getRootToNodePath(root.left,data);
+        if(leftOutput !=null){
+            leftOutput.add(root.data);
+            return leftOutput;
+        }
+        ArrayList<Integer> rightOutput = getRootToNodePath(root.right,data);
+        if(rightOutput != null){
+            rightOutput.add(root.data);
+            return rightOutput;
+        }
+        return null;
     }
 
     public static void main(String[] args) {
 	// write your code here
         Scanner scanner = new Scanner(System.in);
     //  TreeNode<Integer> root = takeInput(scanner);
-    //  TreeNode<Integer> root = takeInputLevelWise();
+          BinaryTreeNode<Integer> root = takeInputLevelWise();
 //        int[] pre = {1,2,4,6,5,3};
 //        int[] in = {6,4,2,5,1,3};
 //        int[] post = {6,4,5,2,3,1};
@@ -420,9 +457,19 @@ public class Main {
 //        System.out.println("Min of tree : " + isBST2(rootBST).data2.data1);
 //        System.out.println("Max of tree : " + isBST2(rootBST).data2.data2);
 //        System.out.println("Is Tree a BST 3 : " + isBST3(rootBST,Integer.MIN_VALUE,Integer.MAX_VALUE));
-        int[] arrayToBST = {19,21,50,14,8,30,42};
-        TreeNode<Integer> BSTFromArr = BSTFromArray(arrayToBST);
-        printLevelWise(BSTFromArr);
+//        int[] arrayToBST = {19,21,50,14,8,30,42};
+//        TreeNode<Integer> BSTFromArr = BSTFromArray(arrayToBST);
+//        printLevelWise(BSTFromArr);
+//        LinkedList<Integer> llFromBST = BSTToSortedLL(BSTFromArr);
+//        for(Integer i : llFromBST){
+//            System.out.print(i + " ");
+//        }
+//        System.out.println();
+            ArrayList<Integer>path = getRootToNodePath(root,6);
+            for(Integer i : path){
+              System.out.print(i + " ");
+            }
+            System.out.println();
     }
 
 
