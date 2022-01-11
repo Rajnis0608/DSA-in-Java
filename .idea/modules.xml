@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Arrays/Arrays.iml" filepath="$PROJECT_DIR$/Arrays/Arrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Trees/Binary Tree/Binary Tree.iml" filepath="$PROJECT_DIR$/Trees/Binary Tree/Binary Tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DS in java.iml" filepath="$PROJECT_DIR$/.idea/DS in java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hash Map/Hash Map.iml" filepath="$PROJECT_DIR$/Hash Map/Hash Map.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Linked List/Linked List.iml" filepath="$PROJECT_DIR$/Linked List/Linked List.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Priority Queue/PQ using Heap.iml" filepath="$PROJECT_DIR$/Priority Queue/PQ using Heap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Priority Queue/Priority Queue using Heap.iml" filepath="$PROJECT_DIR$/Priority Queue/Priority Queue using Heap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Queue/Queue Using Array/Queue Using Array.iml" filepath="$PROJECT_DIR$/Queue/Queue Using Array/Queue Using Array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Queue/Queue Using LinkedList/Queue Using LinkedList.iml" filepath="$PROJECT_DIR$/Queue/Queue Using LinkedList/Queue Using LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Recursion/Recursion.iml" filepath="$PROJECT_DIR$/Recursion/Recursion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Searching and Sorting/Searching and Sorting.iml" filepath="$PROJECT_DIR$/Searching and Sorting/Searching and Sorting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Stack/Stack Using Array/Stack Using Array.iml" filepath="$PROJECT_DIR$/Stack/Stack Using Array/Stack Using Array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Stack/Stack Using LinkedList/Stack Using LinkedList.iml" filepath="$PROJECT_DIR$/Stack/Stack Using LinkedList/Stack Using LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Trees/Standard Tree/Standard Tree.iml" filepath="$PROJECT_DIR$/Trees/Standard Tree/Standard Tree.iml" />
+    </modules>
+  </component>
+</project>
