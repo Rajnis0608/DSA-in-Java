@@ -72,7 +72,7 @@ public class MinimumCostPath {
                 }
             }
         }
-        
+
         return dp[0][0];
     }
 
