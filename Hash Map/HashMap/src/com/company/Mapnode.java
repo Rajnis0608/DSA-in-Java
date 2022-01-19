@@ -7,6 +7,5 @@ public class Mapnode<K,V> {
     public Mapnode(K key,V value){
         this.key = key;
         this.value = value;
-
     }
 }
