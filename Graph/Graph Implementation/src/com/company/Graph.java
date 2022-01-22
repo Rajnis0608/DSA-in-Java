@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -48,6 +49,53 @@ public class Graph {
         }
     }
 
+    private static boolean hasPath(int[][] edges,int sv,int ev,boolean[] visited){
+        visited[sv] = true;
+        for (int i=0;i<edges.length;i++){
+            if (edges[sv][i] == 1 ){
+                if (i == ev){
+                    return true;
+                }else if (visited[i]!=true){
+                    return hasPath(edges,i,ev,visited);
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasPath(int[][] edges,int sv,int ev){
+        boolean[] visited = new boolean[edges.length];
+        for (int i=0;i<edges.length;i++){
+            if (!visited[i])
+                if(hasPath(edges,sv,ev,visited)){
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    private static ArrayList<Integer> getPath(int[][] edges,int sv,int ev,ArrayList<Integer> ans,boolean[] visited){
+        if (sv == ev){
+            ans.add(sv);
+            return ans;
+        }
+        for (int i=0;i<edges.length;i++){
+            if (edges[sv][i] == 1 && !visited[i]){
+                if (getPath(edges,i,ev,ans,visited) != null) {
+                    ans.add(sv);
+                    return ans;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<Integer> getPath(int[][] edges,int sv,int ev){
+        ArrayList<Integer> ans = new ArrayList<>();
+        boolean[] visited = new boolean[edges.length];
+        return getPath(edges,sv,ev,ans,visited);
+    }
+
     public static void main(String[] args) {
         int n;
         int e;
@@ -66,6 +114,11 @@ public class Graph {
         System.out.println();
         System.out.println("BFS");
         breadthFirstSearch(edges);
-
+        System.out.println();
+        //Do again
+        System.out.println(hasPath(edges,0,6));
+        System.out.println(hasPath(edges,5,6));
+        System.out.println(hasPath(edges,2,3));
+        System.out.println(getPath(edges,0,4));
     }
 }
