@@ -1,18 +1,13 @@
 package com.company;
 
-public class LongestPalindromicSubsequence {
+public class SequencePatternMatching {
     /*
-    Given a sequence, find the length of the longest palindromic subsequence in it.
-    Example : a = agbcba
-    output : 5 (abcba)
+    Check if a is subsequence of b
+    a = "AXY"
+    b = "ADXCPY"
      */
-    public static int longestPalindromicSubsequence(String x,int n){
-        StringBuilder y = new StringBuilder(x);
-        y.reverse();
-        int m = x.length();
-
+    public static boolean sequencePatternMatching(String x,String y,int n,int m){
         int dp[][] = new int[n+1][m+1];
-
         for (int i=0;i<=n;i++){
             for (int j=0;j<=m;j++){
                 if (i == 0 || j == 0){
@@ -24,12 +19,12 @@ public class LongestPalindromicSubsequence {
                 }
             }
         }
-        return dp[n][m];
+        return dp[n][m] == n;
     }
 
-
     public static void main(String[] args) {
-        String s = "agbcba";
-        System.out.println(longestPalindromicSubsequence(s,s.length()));
+        String a = "AXY";
+        String b = "ADXCPY";
+        System.out.println(sequencePatternMatching(a,b,a.length(),b.length()));
     }
 }
