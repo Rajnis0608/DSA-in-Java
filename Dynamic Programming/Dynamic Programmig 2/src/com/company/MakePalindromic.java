@@ -2,14 +2,17 @@ package com.company;
 
 public class MakePalindromic {
     /*
-    Given a string of size ‘n’. The task is to remove or delete the minimum number of characters from the string so
+    Given a string of size ‘n’. The task is to remove or delete the minimum number of characters from the
+    string so that the resultant string is a palindrome.
+                                            OR
+    Given a string of size ‘n’. The task is to insert the minimum number of into the string so
     that the resultant string is a palindrome.
 
     Note: The order of characters should be maintained.
     Example : a = agbcba
-    output : 1 (g)
+    output : 1 (g insert another g or delete existing)
      */
-    public static int minimumDeletion(String x, int n){
+    public static int minimumDeletionOrInsertion(String x, int n){
         StringBuilder y = new StringBuilder(x);
         y.reverse();
         int m = x.length();
@@ -32,6 +35,6 @@ public class MakePalindromic {
 
     public static void main(String[] args) {
         String s = "agbcba";
-        System.out.println(minimumDeletion(s,s.length()));
+        System.out.println(minimumDeletionOrInsertion(s,s.length()));
     }
 }
