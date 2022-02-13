@@ -33,6 +33,7 @@ public class MatrixChainMultiplication {
                 dp[i][j] = -1;
             }
         }
+
         return solve(arr,1,N-1,dp);
     }
 
